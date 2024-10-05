@@ -3,10 +3,11 @@
 # @File         : service.py
 # @Description  :
 import logging
+import os
 import threading
 from concurrent import futures
-from operator import index
 
+import cv2
 import grpc
 
 import grpc_service.services_pb2_grpc as s_grpc
@@ -17,21 +18,28 @@ from detect import DetectImage
 
 
 class RaspiBerryServer(s_grpc.RPiMessage, DetectImage):
-    def __init__(self, object):
+    def __init__(self, Object):
         s_grpc.RPiMessage.__init__(self)
-        DetectImage.__init__(self, object)
+        DetectImage.__init__(self, Object)
+        self.cnt = 0
 
     def GetPosition(self, request, context):
         try:
-            print(self.result)
-        except:
+            os.mkdir('./img_files')
+        except FileExistsError:
             pass
+        if len(self.result) != 0:
+            cv2.imwrite(f"./img_files/"
+                        f"{self.cnt}-{request.p1}-{request.j1}"
+                        f"-{request.j2}-{request.j3}-{request.j4}"
+                        f"-{request.j5}-{request.j6}.jpg", self.subject.rgb)
+            self.cnt = self.cnt + 1
         return s.Index(index=2)
 
 
-def serve(object):
+def serve(Object):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    s_grpc.add_RPiMessageServicer_to_server(object, server)
+    s_grpc.add_RPiMessageServicer_to_server(Object, server)
     server.add_insecure_port('[::]:50051')
     server.start()
     server.wait_for_termination()
