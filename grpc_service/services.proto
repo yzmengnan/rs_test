@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package services;
+
+service RPiMessage {
+    rpc GetPosition (Positions) returns (Index);
+}
+
+message Positions {
+    double p1 = 1;
+    double j1 = 2;
+    double j2 = 3;
+    double j3 = 4;
+    double j4 = 5;
+    double j5 = 6;
+    double j6 = 7;
+}
+
+message Index {
+    int32 index = 1;
+}

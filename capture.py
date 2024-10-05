@@ -139,7 +139,7 @@ class ShowImage(Observer):
         self.subject = subject
         self.showThread = None
 
-    def __loop(self):
+    def loop(self):
         while True:
             if self.running:
                 try:
@@ -164,7 +164,7 @@ class ShowImage(Observer):
 
     def notify(self):
         if self.showThread is None or not self.showThread.is_alive():
-            self.showThread = threading.Thread(target=self.__loop)
+            self.showThread = threading.Thread(target=self.loop)
             self.showThread.start()
             # print("start show thread")
 
