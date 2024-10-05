@@ -36,8 +36,6 @@ and for reference.
 
 import math
 import ctypes
-import pyglet
-import pyglet.gl as gl
 import numpy as np
 import pyrealsense2 as rs
 

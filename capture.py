@@ -8,11 +8,11 @@ import json
 import os
 import threading
 from time import sleep
-from wsgiref.util import request_uri
 
 import cv2
 import numpy as np
 import pyrealsense2 as rs
+
 
 
 #
@@ -143,7 +143,7 @@ class ShowImage(Observer):
         while True:
             if self.running:
                 try:
-                    cv2.namedWindow('image', cv2.WINDOW_GUI_NORMAL | cv2.WINDOW_AUTOSIZE)
+                    cv2.namedWindow('image', cv2.WINDOW_GUI_NORMAL | cv2.WINDOW_FREERATIO)
                     cv2.imshow('image', self.subject.rgb)
                     cv2.waitKey(1)
                     # if cv2.waitKey(1) & 0xFF == ord('q'):
