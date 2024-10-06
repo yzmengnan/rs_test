@@ -28,12 +28,13 @@ class RaspiBerryServer(s_grpc.RPiMessage, DetectImage):
             os.mkdir('./img_files')
         except FileExistsError:
             pass
-        if len(self.result) != 0:
-            cv2.imwrite(f"./img_files/"
-                        f"{self.cnt}-{request.p1}-{request.j1}"
-                        f"-{request.j2}-{request.j3}-{request.j4}"
-                        f"-{request.j5}-{request.j6}.jpg", self.subject.rgb)
-            self.cnt = self.cnt + 1
+        # if len(self.result) != 0:
+        #     print(self.result[0].pose_t)
+        cv2.imwrite(f"./img_files/"
+                    f"{self.cnt}-{request.p1}-{request.j1}"
+                    f"-{request.j2}-{request.j3}-{request.j4}"
+                    f"-{request.j5}-{request.j6}.jpg", self.subject.rgb)
+        self.cnt = self.cnt + 1
         return s.Index(index=2)
 
 
