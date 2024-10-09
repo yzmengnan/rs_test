@@ -35,7 +35,8 @@ class RaspiBerryServer(s_grpc.RPiMessage, DetectImage):
                     f"-{request.j2}-{request.j3}-{request.j4}"
                     f"-{request.j5}-{request.j6}.jpg", self.subject.rgb)
         self.cnt = self.cnt + 1
-        return s.Index(index=2)
+        print(f"data recored: {self.cnt}")
+        return s.Index(index=self.cnt)
 
 
 def serve(Object):
